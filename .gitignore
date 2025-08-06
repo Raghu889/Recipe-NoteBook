@@ -1,0 +1,8 @@
+venv/
+requirements.txt
+app/__pycache__/
+app/routes/__pycache__/
+app/schemas/__pycache__/
+app/models/__pycache__/
+app/recipes.db
+app/requirements.txt
