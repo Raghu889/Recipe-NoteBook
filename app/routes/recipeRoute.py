@@ -1,16 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from db import SessionLocal
-from schemas import user as user_schema
-from schemas import rating as rating_schema
-from schemas import save as save_schema
-from models.user import User
-from models.recipe import Recipe
-from models.rating import Rating
-from models.save import Save
-from utils import hash_password, verify_password, create_access_token, get_current_user
-from schemas import recipe
+from app.db import SessionLocal
+from app.schemas import user as user_schema
+from app.schemas import rating as rating_schema
+from app.schemas import save as save_schema
+from app.models.user import User
+from app.models.recipe import Recipe
+from app.models.rating import Rating
+from app.models.save import Save
+from app.utils import hash_password, verify_password, create_access_token, get_current_user
+from app.schemas import recipe
 from typing import List, Optional
 from fastapi.encoders import jsonable_encoder
 

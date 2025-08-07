@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from routes import recipeRoute
-from routes import auth
-from db import engine
-from models import user,recipe,rating, save
+from app.routes import recipeRoute
+from app.routes import auth
+from app.db import engine
+from app.models import user,recipe,rating, save
 
 
 
