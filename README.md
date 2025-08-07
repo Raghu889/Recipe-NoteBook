@@ -35,6 +35,8 @@ cd Recipe-NoteBook
 # (Optional) Create a virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+#Install packages from requirements-docker.txt
+RUN pip install --no-cache-dir -r requirements-docker.txt
 ```
 
 Running App
