@@ -40,7 +40,7 @@ RUN pip install --no-cache-dir -r requirements-docker.txt
 ```
 
 Running App
-uvicorn app.main:app --reload
+```uvicorn app.main:app --reload```
 
 
 Project Stucture:
