@@ -43,6 +43,7 @@ uvicorn app.main:app --reload
 
 Project Stucture:
 
+```
 recipe-notebook/
 │
 ├── app/
@@ -54,9 +55,9 @@ recipe-notebook/
 │   └── utils.py              # Utility functions (token, hashing)
 │
 ├── requirements.txt          # Python dependencies
-├── README.md                 # This file
+├── README.md                 # Project documentation
 
-
+```
 
 🔐 Authentication
 
