@@ -40,3 +40,4 @@ def login(user: user_schema.UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid credentials")
     token = create_access_token(data={"sub": str(db_user.id)})
     return {"access_token": token, "token_type": "bearer"}
+

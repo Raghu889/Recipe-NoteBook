@@ -2,12 +2,14 @@ from fastapi import FastAPI
 from routes import recipeRoute
 from routes import auth
 from db import engine
-from models import user,recipe
+from models import user,recipe,rating, save
 
 
 
 user.Base.metadata.create_all(bind=engine)
 recipe.Base.metadata.create_all(bind=engine)
+rating.Base.metadata.create_all(bind=engine)
+save.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 

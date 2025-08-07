@@ -12,6 +12,13 @@ class Recipe(Base):
     simplified_instructions = Column(Text)
     calories = Column(Integer)
     tags = Column(String)
-    
     author_id = Column(Integer, ForeignKey("users.id"))
+
+
     author = relationship("User", back_populates="recipes")
+    ratings=relationship("Rating",back_populates="recipe")
+    save=relationship("Save",back_populates="recipe")
+
+
+
+
