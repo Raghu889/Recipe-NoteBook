@@ -169,6 +169,20 @@ async def save_recipe(id:int,db:Session=Depends(get_db),current_user:User=Depend
 
     return save
 
+@router.delete("/{id}/unsave")
+def unsave_recipe(id:int,db:Session=Depends(get_db),current_user:User=Depends(get_current_user)):
+    # ✅ Check if the recipe is saved by the user
+    save_entry = db.query(Save).filter(
+        Save.user_id == current_user.id,
+        Save.recipe_id == id
+    ).first()
+    if not save_entry:
+        raise HTTPException(status_code=404, detail="Recipe not found in your saved list.")
+    # ❌ Delete the save entry
+    db.delete(save_entry)
+    db.commit()
+
+    return {"detail": "Recipe unsaved successfully."}
 
 
 
