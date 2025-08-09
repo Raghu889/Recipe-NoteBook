@@ -77,7 +77,7 @@ A registered user can:
 
 - **FastAPI** – Web framework
 - **SQLAlchemy** – ORM for DB operations
-- **SQLite** (default) – Easily swappable to PostgreSQL/MySQL
+- **SQL** - As DataBase
 - **JWT** – Authentication (`python-jose`)
 - **Pydantic** – Request/response validation
 - **Uvicorn** – ASGI server
@@ -171,6 +171,3 @@ Open the **interactive API docs** at:
 
 ***
 
-If you want, I can also **add simple usage examples with curl and JSON** so even beginners can quickly try out the API without much setup.  
-
-Do you want me to **extend this README with API request/response examples** for all actions? That would make it even more beginner-friendly.
