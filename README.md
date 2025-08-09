@@ -77,13 +77,13 @@ A registered user can:
 
 - **FastAPI** – Web framework
 - **SQLAlchemy** – ORM for DB operations
-- **SQL** - As DataBase
+- **SQL** - DataBase
 - **JWT** – Authentication (`python-jose`)
 - **Pydantic** – Request/response validation
 - **Uvicorn** – ASGI server
 
 ***
-
+## DataBase SQL example URL: ```mysql+pymysql://username:password@localhost:3306/mydatabase```
 ## 📦 Installation
 
 ```bash
