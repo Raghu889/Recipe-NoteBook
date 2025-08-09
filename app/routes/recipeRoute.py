@@ -43,30 +43,16 @@ def create_recipe(recipe:recipe.RecipeUpdate, db:Session=Depends(get_db),current
 @router.get("/",response_model=List[recipe.RecipeOut])
 async def get_recipes(db:Session=Depends(get_db)):
     recipes= db.query(Recipe).all()
-    recipe_out_list=[]
-    for recipe_obj in recipes:
-        avg_rating=db.query(func.avg(Rating.rating))\
-                     .filter(Rating.recipe_id==recipe_obj.id).scalar()
-        
-        recipe_data = jsonable_encoder(recipe_obj)
-        recipe_data['average_rating']=round(avg_rating, 2) if avg_rating else None
-
-        recipe_out_list.append(recipe.RecipeOut(**recipe_data))
-    return recipe_out_list
+    
+    return recipes
 
 @router.get("/{recipe_id}",response_model=recipe.RecipeOut)
 async def get_recipe_by_id(recipe_id:int,db:Session=Depends(get_db)):
     reci=db.query(Recipe).filter(Recipe.id== recipe_id).first()
     if not reci:
         raise HTTPException(status_code=404,detail="Recipe Not Foud")
-    # ✅ Calculate average rating
-    avg_rating = db.query(func.avg(Rating.rating))\
-                   .filter(Rating.recipe_id == recipe_id)\
-                   .scalar()
-
-    recipe_data = jsonable_encoder(reci)
-    recipe_data['average_rating'] = round(avg_rating, 2) if avg_rating else None
-    return recipe.RecipeOut(**recipe_data)
+    
+    return reci
 
 
 @router.put("/{recipe_id}",response_model=recipe.RecipeOut)
@@ -103,7 +89,7 @@ async def delete_recipe(recipe_id:int,db:Session=Depends(get_db),current_user:Us
     return None
 
 @router.post("/{id}/rate", response_model=rating_schema.RateingOut)
-async def save_recipe(id:int,rate:rating_schema.RateingIn,db:Session=Depends(get_db),current_user:User=Depends(get_current_user)):
+async def rate_recipe(id:int,rate:rating_schema.RateingIn,db:Session=Depends(get_db),current_user:User=Depends(get_current_user)):
     reci=db.query(Recipe).filter(Recipe.id==id).first()
     if not reci:
         raise HTTPException(status_code=404, detail="Recipe not found")
@@ -121,6 +107,19 @@ async def save_recipe(id:int,rate:rating_schema.RateingIn,db:Session=Depends(get
         raise HTTPException(status_code=400, detail="You have already rated this recipe")
     
 
+    # Default values if None
+    if reci.no_of_ratings is None:
+        reci.no_of_ratings = 0
+    if reci.average_rating is None:
+        reci.average_rating = 0.0
+
+    # ✅ Weighted average formula
+    count = reci.no_of_ratings + 1
+    avg_rating = ((reci.average_rating * reci.no_of_ratings) + rate.rate) / count
+
+    reci.average_rating = avg_rating
+    reci.no_of_ratings = count
+
     db_rating=Rating(
         user_id=current_user.id,
         recipe_id=id,
@@ -130,10 +129,9 @@ async def save_recipe(id:int,rate:rating_schema.RateingIn,db:Session=Depends(get
     db.add(db_rating)
     db.commit()
     db.refresh(db_rating)
+    db.refresh(reci)
 
     return db_rating
-
-
 
 @router.get("/user/save",response_model=List[recipe.RecipeOut])
 def get_saved_recipes(db:Session=Depends(get_db),current_user:User=Depends(get_current_user)):

@@ -16,7 +16,8 @@ class RecipeOut(BaseModel):
     calories: Optional[int]
     tags: str
     author_id: int
-    average_rating:Optional[float]=None
+    average_rating:Optional[float]=0
+    no_of_ratings:Optional[int]=0
 
     class Config:
         orm_mode = True

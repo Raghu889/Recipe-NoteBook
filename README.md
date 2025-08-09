@@ -35,6 +35,8 @@ cd Recipe-NoteBook
 # (Optional) Create a virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+
 ```
 
 Running App

@@ -6,3 +6,6 @@ app/schemas/__pycache__/
 app/models/__pycache__/
 app/recipes.db
 app/requirements.txt
+tests/
+__init__.py
+__pycache__/

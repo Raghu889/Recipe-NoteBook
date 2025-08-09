@@ -2,9 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db import SessionLocal
 from typing import List
+from sqlalchemy import func
+from fastapi.encoders import jsonable_encoder
 from app.models.recipe import Recipe
 from app.schemas import user as user_schema
 from app.models.user import User
+from app.schemas import recipe
+from app.models.rating import Rating
 from app.utils import hash_password, verify_password, create_access_token, get_current_user
 from fastapi.security import OAuth2PasswordRequestForm
 from app.schemas.recipe import RecipeOut
@@ -47,5 +51,5 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 @router.get("/profile",response_model=List[RecipeOut])
 def get_profile(db:Session=Depends(get_db),current_user:User=Depends(get_current_user)):
     recipes=db.query(Recipe).filter(Recipe.author_id==current_user.id).all()
-
+    
     return recipes
