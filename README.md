@@ -134,7 +134,17 @@ Open the **interactive API docs** at:
 **http://127.0.0.1:8000/docs**
 
 ***
-
+***
+For Running Tests:
+just install the pytest
+```
+pip install pytest
+```
+After installing run the below cmd in your root folder:
+```
+pytest
+```
+***
 ## 📫 API Endpoints
 
 ### **Authentication**
