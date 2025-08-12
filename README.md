@@ -102,6 +102,26 @@ pip install --no-cache-dir -r requirements-docker.txt
 ***
 
 ## ▶️ Running the App
+Follow these steps to run the project from the recipe_notebook folder.
+1. Open Terminal in the recipe_notebook Folder
+
+Make sure your working directory is:
+```
+recipe_notebook/
+    app/
+    ...
+```
+2. Set the PYTHONPATH
+
+This ensures Python can correctly import from the app package.
+Windows (PowerShell or CMD)
+```
+set PYTHONPATH=.
+```
+For macOS/Linux:
+```
+export PYTHONPATH=.
+```
 
 ```bash
 uvicorn app.main:app --reload
