@@ -15,3 +15,7 @@ app=FastAPI()
 
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(recipeRoute.router, prefix="/api/recipe", tags=["Recipe"])
+
+@app.get("/")
+async def root():
+    return {"message":"API is runnig"}
